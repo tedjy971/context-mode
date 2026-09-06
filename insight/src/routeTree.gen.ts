@@ -9,27 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SessionsRouteImport } from './routes/sessions'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as KnowledgeRouteImport } from './routes/knowledge'
-import { Route as EnterpriseRouteImport } from './routes/enterprise'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SessionsDbHashSessionIdRouteImport } from './routes/sessions_.$dbHash.$sessionId'
+import { Route as EnterpriseRouteImport } from './routes/enterprise'
+import { Route as KnowledgeRouteImport } from './routes/knowledge'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SessionsRouteImport } from './routes/sessions'
 import { Route as KnowledgeDbHashSourceIdRouteImport } from './routes/knowledge_.$dbHash.$sourceId'
+import { Route as SessionsDbHashSessionIdRouteImport } from './routes/sessions_.$dbHash.$sessionId'
 
-const SessionsRoute = SessionsRouteImport.update({
-  id: '/sessions',
-  path: '/sessions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KnowledgeRoute = KnowledgeRouteImport.update({
-  id: '/knowledge',
-  path: '/knowledge',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EnterpriseRoute = EnterpriseRouteImport.update({
@@ -37,19 +27,29 @@ const EnterpriseRoute = EnterpriseRouteImport.update({
   path: '/enterprise',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const KnowledgeRoute = KnowledgeRouteImport.update({
+  id: '/knowledge',
+  path: '/knowledge',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SessionsDbHashSessionIdRoute = SessionsDbHashSessionIdRouteImport.update({
-  id: '/sessions_/$dbHash/$sessionId',
-  path: '/sessions/$dbHash/$sessionId',
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionsRoute = SessionsRouteImport.update({
+  id: '/sessions',
+  path: '/sessions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KnowledgeDbHashSourceIdRoute = KnowledgeDbHashSourceIdRouteImport.update({
   id: '/knowledge_/$dbHash/$sourceId',
   path: '/knowledge/$dbHash/$sourceId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SessionsDbHashSessionIdRoute = SessionsDbHashSessionIdRouteImport.update({
+  id: '/sessions_/$dbHash/$sessionId',
+  path: '/sessions/$dbHash/$sessionId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -123,25 +123,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sessions': {
-      id: '/sessions'
-      path: '/sessions'
-      fullPath: '/sessions'
-      preLoaderRoute: typeof SessionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/knowledge': {
-      id: '/knowledge'
-      path: '/knowledge'
-      fullPath: '/knowledge'
-      preLoaderRoute: typeof KnowledgeRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/enterprise': {
@@ -151,18 +137,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EnterpriseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/knowledge': {
+      id: '/knowledge'
+      path: '/knowledge'
+      fullPath: '/knowledge'
+      preLoaderRoute: typeof KnowledgeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sessions_/$dbHash/$sessionId': {
-      id: '/sessions_/$dbHash/$sessionId'
-      path: '/sessions/$dbHash/$sessionId'
-      fullPath: '/sessions/$dbHash/$sessionId'
-      preLoaderRoute: typeof SessionsDbHashSessionIdRouteImport
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sessions': {
+      id: '/sessions'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof SessionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/knowledge_/$dbHash/$sourceId': {
@@ -170,6 +163,13 @@ declare module '@tanstack/react-router' {
       path: '/knowledge/$dbHash/$sourceId'
       fullPath: '/knowledge/$dbHash/$sourceId'
       preLoaderRoute: typeof KnowledgeDbHashSourceIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sessions_/$dbHash/$sessionId': {
+      id: '/sessions_/$dbHash/$sessionId'
+      path: '/sessions/$dbHash/$sessionId'
+      fullPath: '/sessions/$dbHash/$sessionId'
+      preLoaderRoute: typeof SessionsDbHashSessionIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
